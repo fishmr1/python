@@ -1,0 +1,84 @@
+import os
+
+import time
+
+
+WIDTH = 79
+
+
+message = "lance".upper()
+
+printedMessage = [ "","","","","","","" ]
+
+
+characters = { " " : [ " ",
+                       " ",
+                       " ",
+                       " ",
+                       " ",
+                       " ",
+                       " " ],
+
+               "A" : [ "*****",
+                       "*   *",
+                       "*   *",
+                       "*****",
+                       "*   *",
+                       "*   *",
+                       "*   *" ],
+               
+               "L" : [ "*    " ,
+                       "*    ",
+                       "*    ",
+                       "*    ",
+                       "*    ",
+                       "*    ",
+                       "*****" ], 
+
+               "C" : [ "*****",
+                       "*    ",
+                       "*    ",
+                       "*    ",
+                       "*    ",
+                       "*    ",
+                       "*****" ],
+
+               "E" : [ "*****",
+                       "*    ",
+                       "*    ",
+                       "***  ",
+                       "*    ",
+                       "*    ",
+                       "*****" ],
+
+               "N" : [ "**  *",
+                       "* * *",
+                       "*  **",
+                       "*   *",
+                       "*   *",
+                       "*   *",
+                       "*   *" ]
+               
+               }
+
+
+for row in range(7):
+    for char in message:
+        printedMessage[row] += (str(characters[char][row]) + "  ")
+
+#the offset is how far to the right we want to print the message.
+#initially, we want to print the message just off the display.
+offset = WIDTH
+while True:
+    os.system("cls")
+    #print each line of the message, including the offset.
+    for row in range(7):
+        print(" " * offset + printedMessage[row][max(0,offset*-1):WIDTH - offset])
+    #move the message a little to the left.
+    offset -=1
+    #if the entire message has moved 'through' the display then
+    #start again from the right hand side.
+    if offset <= ((len(message)+2)*6) * -1:
+        offset = WIDTH
+    #take out or change this line to speed up / slow down the display
+    time.sleep(0.05)
